@@ -14,7 +14,6 @@ function isRedditUrl(url) {
 
 function formatUrl(url) {
   let flag = isRedditUrl(url)
-  console.log(flag);
   if (flag) {
     if (url.endsWith(".json")) return url
     if (url.endsWith("/")) {
@@ -38,7 +37,6 @@ router.get('/video', function (req, res) {
     }
     return axios.get(formattedUrl, config)
       .then(resp => {
-        debugger
         let repsonse = resp.data;
         let videoUrl = _.get(repsonse, "0.data.children.0.data.secure_media.reddit_video.fallback_url")
         if (videoUrl) return res.redirect(videoUrl)
