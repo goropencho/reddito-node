@@ -36,7 +36,7 @@ router.get('/video', function (req, res) {
       .then(resp => {
         let repsonse = resp.data;
         let videoUrl = _.get(repsonse, "0.data.children.0.data.secure_media.reddit_video.fallback_url")
-        if (videoUrl) return res.redirect(videoUrl)
+        if (videoUrl) return res.json({videoUrl})
         return res.status(400).send("Incorrect Url or Requested Data.")
       })
   }
