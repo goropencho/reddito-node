@@ -2,12 +2,9 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 var _ = require('lodash')
-var createError = require('http-errors');
-
 
 
 function isRedditUrl(url) {
-  // Use a regular expression to test if the url matches the reddit domain
   let regex = /^https?:\/\/(www\.)?reddit\.com/;
   return regex.test(url);
 }
@@ -40,12 +37,12 @@ router.get('/video', function (req, res) {
         let repsonse = resp.data;
         let videoUrl = _.get(repsonse, "0.data.children.0.data.secure_media.reddit_video.fallback_url")
         if (videoUrl) return res.redirect(videoUrl)
-        res.status(400).send("Incorrect Url or Requested Data.")
+        return res.status(400).send("Incorrect Url or Requested Data.")
       })
   }
   catch (err) {
     console.error(err);
-    res.send(err);
+    return res.send(err);
   }
 })
 
